@@ -1,12 +1,12 @@
 use rand::{rngs::ThreadRng, Rng};
-const NUM: usize = 100000;
+const NUM: usize = 1000000;
 fn main() {
     let mut count = 0u32;
     let mut pool: Vec<f32> = vec![1.0; NUM];
     let mut rng = rand::thread_rng();
     loop {
         count += 1;
-        if count % 10000000 == 0 {
+        if count % 10000 == 0 {
             println!("{}.Entropy: {}", count, calc_entropy(&pool));
         }
         exchange(&mut pool, &mut rng);
