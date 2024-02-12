@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 rand = "0.6"
+polars = { version = "0.25.1", features = ["lazy"] }
