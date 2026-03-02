@@ -1,0 +1,24 @@
+[package]
+name = "fib_wasm"
+version = "0.1.0"
+edition = "2021"
+
+# LEARNING NOTE: crate-type = ["cdylib"] tells rustc to produce a C-compatible
+# dynamic library. wasm-pack then wraps this .wasm file with JS glue code.
+# Without this, cargo produces a rlib (Rust library) which is not loadable by browsers.
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# wasm-bindgen generates the JS/Wasm boundary code automatically.
+# It reads #[wasm_bindgen] attributes and emits:
+#   - JavaScript wrapper functions (see www/pkg/fib_wasm.js after build)
+#   - TypeScript type definitions (see www/pkg/fib_wasm.d.ts after build)
+#   - The glue that maps JS types to/from Wasm linear memory types
+wasm-bindgen = "0.2"
+
+[profile.release]
+# opt-level = "s" optimizes for size, not speed.
+# Wasm binaries are downloaded by the browser, so size matters.
+# "s" = shrink code size; this also makes the WAT output easier to read.
+opt-level = "s"
